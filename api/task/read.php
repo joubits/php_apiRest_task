@@ -14,6 +14,7 @@
 
     // Read a task
     $result = $task->read();
+    //var_dump($result);
 
     // Get num task
     $num = $result->rowCount();
@@ -21,29 +22,31 @@
     if($num > 0) {
         //Post Array
         $tasks_array = array();
-        $tasks_array['data'] = array();
+        //$tasks_array['data'] = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
+            //var_dump ($row);
 
             $task_item = array(
                 'id' => $id,
                 'title' => $title,
                 'body' => html_entity_decode($body),
                 'author' => $author,
-                'category_id' => $category_id,
-                'category_name' => $category_name
+                'category_name' => $category_name,
+                'category_id' => $category_id
+                
             );
 
             // PUSH TO data
-            array_push($tasks_array['data'], $task_item);
-            //array_push($tasks_array, $task_item);
+            //array_push($tasks_array['data'], $task_item);
+            array_push($tasks_array, $task_item);
             //$task_array[] = $task_item;
         }
         // Turn to json and output
 
-        echo json_encode($tasks_array['data']);
-        //echo json_encode($tasks_array);
+        //echo json_encode($tasks_array['data']);
+        echo json_encode($tasks_array);
 
     } else {
         // No post

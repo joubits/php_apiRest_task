@@ -33,6 +33,8 @@
                     categories c ON t.category_id = c.id
                 ORDER BY
                     t.created_at DESC';
+            
+                    //echo $query;
                     
             // prepared statement
             $stmt = $this->conn->prepare($query);
@@ -168,7 +170,7 @@
 
             //clean data
             $this->id = htmlspecialchars(strip_tags($this->id));
-            
+
             // Bind data
             $stmt->bindParam(':id', $this->id);
 
